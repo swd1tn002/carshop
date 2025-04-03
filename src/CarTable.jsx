@@ -11,7 +11,7 @@ export function CarTable({ cars }) {
       <div style={{height: 300, minWidth: 700}}>
       <AgGridReact 
             rowData={cars}
-            columnDefs={[{field:"brand"}, {field: "model"}]}
+            columnDefs={[{field:"brand"}, {field: "model"}, {field:"color"}, {field:"fuel"}, {field:"modelYear"}, {field:"price"}]}
 
       />
       </div>
