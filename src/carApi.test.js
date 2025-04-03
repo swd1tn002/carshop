@@ -1,7 +1,15 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, beforeEach, afterEach } from 'vitest';
 import { getCars, deleteCar } from './carApi';
 
 describe("Car rest api", () => {
+
+    beforeEach(() => {
+        return resetDatabase();
+    });
+
+    afterEach(() => {
+        return resetDatabase();
+    });
 
     test("fetching all cars", async () => {
         const cars = await getCars();

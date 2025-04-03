@@ -10,7 +10,7 @@ export async function getCars() {
 };
 
 export async function deleteCar(car) {
-    const response = await fetch(`https://car-rest-service-carshop.2.rahtiapp.fi/cars/${car.id}`, {
+    const response = await fetch(car._links.car.href, {
         method: 'DELETE'
     });
     if (!response.ok) {
