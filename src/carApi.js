@@ -10,6 +10,11 @@ export async function getCars() {
 };
 
 export async function deleteCar(car) {
-    // fixme: use the rest api
-    return car !== null;
-}
+    const response = await fetch(`https://car-rest-service-carshop.2.rahtiapp.fi/cars/${car.id}`, {
+        method: 'DELETE'
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return true;
+};
