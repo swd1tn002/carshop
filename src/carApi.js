@@ -1,24 +1,13 @@
 
 
 export async function getCars() {
-    // fixme: use the rest api
-    return [{
-        brand: 'Ford',
-        model: 'Mondeo',
-        color: 'Red',
-        fuel: 'Diesel',
-        modelYear: 2013,
-        price: 17500,
-        _links: {
-            self: {
-                href: 'https://car-rest-service-carshop.2.rahtiapp.fi/cars/7660'
-            },
-            car: {
-                href: 'https://car-rest-service-carshop.2.rahtiapp.fi/cars/7660'
-            }
-        }
-    }];
-}
+    const response = await fetch('https://car-rest-service-carshop.2.rahtiapp.fi/cars');
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data._embedded.cars;
+};
 
 export async function deleteCar(car) {
     // fixme: use the rest api
