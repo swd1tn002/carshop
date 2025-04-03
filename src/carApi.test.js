@@ -1,9 +1,7 @@
-import { describe, test, expect, beforeEach } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { getCars, deleteCar } from './carApi';
 
 describe("Car rest api", () => {
-
-    beforeEach(resetDatabase);
 
     test("fetching all cars", async () => {
         const cars = await getCars();
