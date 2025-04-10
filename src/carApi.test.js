@@ -18,12 +18,17 @@ describe("Car rest api", () => {
 
     test("deleting a car", async () => {
         const carsBefore = await getCars();
-        const deleted = await deleteCar(carsBefore[0]);
+        expect(carsBefore.length).toBeGreaterThan(1);
 
-        expect(deleted).toBe(true);
+        const carToDelete = carsBefore.at(0);
+        const success = await deleteCar(carToDelete);
+        expect(success).toBe(true);
 
         const carsAfter = await getCars();
+
         expect(carsAfter.length).toBe(carsBefore.length - 1);
+        expect(carsAfter).not.toContainEqual(carToDelete);
+        expect(carsAfter.at(0)).toEqual(carsBefore.at(1));
     });
 });
 
