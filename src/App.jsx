@@ -2,16 +2,22 @@ import { useEffect, useState } from "react";
 import { CarTable } from "./CarTable";
 import { AppBar, Toolbar, Typography, CssBaseline, Stack } from '@mui/material';
 import { getCars, deleteCar } from "./carApi";
+import DeleteDialog from "./DeleteDialog";
 
 
-function App() {
+export default function App() {
   const [cars, setCars] = useState([]);
 
-  async function removeCar(car) {
+  // when a car is being deleted, it is temporarily store here
+  const [rmCar, setRmCar] = useState(null);
+
+  async function confirmDelete(car) {
     const success = await deleteCar(car);
-    const updatedCars = await getCars();
-    setCars(updatedCars);
-    return success;
+    if (!success) {
+      console.error("removing failed");
+    }
+    setRmCar(null);
+    setCars(await getCars());
   }
 
   useEffect(() => {
@@ -29,9 +35,9 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      <CarTable cars={cars} removeCar={removeCar} />
+      <CarTable cars={cars} removeCar={car => setRmCar(car)} />
+
+      {rmCar && <DeleteDialog car={rmCar} ok={confirmDelete} cancel={() => setRmCar(null)} />}
     </Stack>
   </>
 }
-
-export default App
