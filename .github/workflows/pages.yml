@@ -23,13 +23,19 @@ jobs:
           node-version: lts/*
           cache: 'npm'
 
-      # Oman koodin käsittely:
+      # Remove lockfile to fix issue https://github.com/npm/cli/issues/4828
+      - name: Remove package-lock.json
+        run: rm package-lock.json
+
       - name: Install dependencies
-        run: npm ci     # vaihtoehtoisesti npm install
+        run: npm install
+
       - name: Run jest tests
         run: npm test
+
       - name: Run eslint
         run: npm run lint
+
       - name: Build
         run: npm run build  # tuottaa dist-hakemiston
 
