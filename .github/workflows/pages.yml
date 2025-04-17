@@ -39,7 +39,7 @@ jobs:
         run: npm run lint
 
       - name: Build
-        run: npm run build  # tuottaa dist-hakemiston
+        run: npx vite build --base=/carshop/
 
       # Sivuston luonti valmiilla actioneilla:
       - name: Setup Pages
